@@ -39,3 +39,13 @@ app.post('/posts/:id/comments', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+const path = require('path');
+
+// Serve static files from client folder
+app.use(express.static(path.join(__dirname, '../client')));
+
+// Fallback for SPA (optional, if you plan routing later)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/index.html'));
+});
